@@ -1,0 +1,34 @@
+{% extends 'vestot/base.html' %}
+
+{% block title %}
+    מחק וסת
+{% endblock title %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+    {% if ves_model.user.id == user.id %}          
+    <h3>מחק וסת</h3>
+    <br>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            האם את בטוח שאתה רוצה למחוק את הווסת <strong>"{{ veset.get_str|striptags }}"</strong>  ?
+            <br><br>
+            <input type="submit" class="btn btn-secondary" value="מחק וסת">
+        </form>
+    </div>
+    <br>
+    {% else %}
+    אתה לא צריך להיות כאן...
+    <br><br>
+    {% endif %}
+{% else %}
+    אתה לא יכול להיכנס לכאן לפני שהתחברת...
+    <br><br>
+{% endif %}
+    <a class="btn btn-secondary" href="{% url 'home' %}">חזור</a>
+        
+{% endblock body %}
+    
+    

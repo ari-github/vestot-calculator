@@ -1,0 +1,53 @@
+{% extends 'vestot/base.html' %}
+
+{% block title %}
+    מחשבון וסתות
+{% endblock title %}
+    
+
+{% block body %}
+
+{% if user.is_authenticated %}
+  {% if  vestot_adapter %}
+    <h3>רשימת וסתות</h3> <br>
+    <table class="table  table-striped table-bordered ">
+        <thead>
+          <tr>
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">תאריך ווסת</th>
+            <th scope="col">החודש</th>
+            <th scope="col">בינונית</th>
+            <th scope="col">בינונית 31</th>
+            <th scope="col">הפלגה</th>
+            <th scope="col"> מחק</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for veset in vestot_adapter %}
+            <tr>
+                {% for v in veset %}
+                    {% if not v.id %}
+                      <td>{{ v.get_str|safe }}</td>
+                    {% else %}
+                      <td><a href="{% url 'delete_veset' v.pk %}">מחק</a></td>
+                    {% endif %}
+                {% endfor %}  
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+    <h4>עדיין לא הוספת וסתות</h4>
+    {% endif %}
+    <br>
+    <a class="btn btn-secondary" href="{% url 'add_veset' %}">הוסף וסת</a><br><br> 
+
+
+{% else %}
+בכדי לראות את "רשימת הוסתות" עליך <a href="{% url 'login' %}">להתחבר</a> או <a href="{% url 'register' %}">להירשם</a>
+<br><br>
+
+{% endif %}
+  
+    
+{% endblock body %}

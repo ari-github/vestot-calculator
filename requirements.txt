@@ -1,0 +1,13 @@
+asgiref==3.3.2
+Django==3.1.7
+julian==0.14
+memoization==0.3.2
+python-dateutil==2.8.1
+python-decouple==3.4
+pytz==2021.1
+six==1.15.0
+sqlparse==0.4.1
+typing-extensions==3.7.4.3
+waitress==2.0.0
+whitenoise==5.2.0
+zmanim==0.3.1
