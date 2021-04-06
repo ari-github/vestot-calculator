@@ -12,6 +12,7 @@ def home(request):
     if request.user.is_authenticated:
         ves = VesetModel.objects.filter(user=request.user)
         vestot_list = [vestot.Veset(v.year, v.month, v.day, v.ona) for v in ves]
+        vestot_list.sort()
 
         for key, veset in enumerate(vestot_list):
             forbiden = []

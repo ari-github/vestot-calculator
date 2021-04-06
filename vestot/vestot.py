@@ -41,6 +41,9 @@ class Veset:
 
         return f"{day}' {month} <br> {year} {ona}"
 
+    def __lt__(self, other):
+        return self.date < other.date
+
     def __str__(self):
         return f'{self.__class__.__name__}: date:{self.date.jewish_date} ona:{self.ona}'
 
