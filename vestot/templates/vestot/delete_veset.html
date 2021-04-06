@@ -8,14 +8,16 @@
 
 {% if user.is_authenticated %}
     {% if ves_model.user.id == user.id %}          
-    <h3>מחק וסת</h3>
+    <h3 class="d-flex align-items-center justify-content-center">מחק וסת</h3>
     <br>
-    <div class="form-group">
+    <div class="form-group d-flex align-items-center justify-content-center">
         <form method="POST">
             {% csrf_token %}
             האם את בטוח שאתה רוצה למחוק את הווסת <strong>"{{ veset.get_str|striptags }}"</strong>  ?
             <br><br>
-            <input type="submit" class="btn btn-secondary" value="מחק וסת">
+            <div class="d-flex align-items-center justify-content-center">
+                <input type="submit" class="btn btn-secondary" value="מחק וסת">
+            </div>
         </form>
     </div>
     <br>
@@ -27,7 +29,9 @@
     אתה לא יכול להיכנס לכאן לפני שהתחברת...
     <br><br>
 {% endif %}
-    <a class="btn btn-secondary" href="{% url 'home' %}">חזור</a>
+    <div class="d-flex align-items-center justify-content-center">
+        <a class="btn btn-secondary" href="{% url 'home' %}">חזור</a>
+    </div>
         
 {% endblock body %}
     

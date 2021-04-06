@@ -9,8 +9,8 @@
 
 
 {% if user.is_authenticated %}
-<h3>הוסף וסת</h3>
-<div class="form-group">
+<h3 class="d-flex align-items-center justify-content-center">הוסף וסת</h3>
+<div class="form-group d-flex align-items-center justify-content-center">
   <form method="POST" class="w-25">
       {% csrf_token %}
 
@@ -102,8 +102,9 @@
 אתה לא יכול להיכנס לכאן לפני שהתחברת...
 <br><br>
 {% endif %}
-  
-<a class="mb-3 btn btn-secondary" href="{% url 'home' %}">חזור</a>
+  <div class="d-flex align-items-center justify-content-center">
+    <a class="mb-3 btn btn-secondary" href="{% url 'home' %}">חזור</a>
+  </div>
 
 <script>
   selectElement('year', '{{ date.jewish_year }}')
