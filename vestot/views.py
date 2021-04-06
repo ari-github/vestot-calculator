@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from zmanim.hebrew_calendar.jewish_date import JewishDate
+
 from .models import VesetModel
 from . import vestot
 
@@ -42,7 +44,7 @@ def add_veset(request):
         ves.save()    
         return HttpResponseRedirect(reverse('home'))
     else:
-        return render(request, 'vestot/add_veset.html')
+        return render(request, 'vestot/add_veset.html', {'date': JewishDate()})
 
 def delete_veset(request, num):
     ves_model = VesetModel.objects.get(pk=num)

@@ -105,5 +105,17 @@
   
 <a class="mb-3 btn btn-secondary" href="{% url 'home' %}">חזור</a>
 
+<script>
+  selectElement('year', '{{ date.jewish_year }}')
+  selectElement('month', '{{ date.jewish_month }}')
+  selectElement('day', '{{ date.jewish_day }}')
+
+
+  function selectElement(id, valueToSelect) {    
+      let element = document.getElementById(id);
+      element.value = valueToSelect;
+  }
+</script>
+
 {% endblock body %}
     
