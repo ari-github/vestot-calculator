@@ -1,0 +1,54 @@
+{% extends 'vestot/base.html' %}
+
+{% block title %}
+    מחשבון מהיר
+{% endblock title %}
+  
+{% block body %}
+<h3 class="d-flex align-items-center justify-content-center">מחשבון מהיר</h3>
+
+
+{% if form %}
+  <div class="center-form w-25">
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p}}
+      <input type="submit" value="בדוק" class="btn btn-secondary">
+    </form>
+  </div>
+
+{% elif vestot_list %}
+
+<table class="table  table-striped table-bordered ">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">תאריך ווסת</th>
+      <th scope="col">החודש</th>
+      <th scope="col">בינונית</th>
+      <th scope="col">בינונית 31</th>
+      
+      {% if vestot_list|length == 5 %}
+        <th scope="col">הפלגה</th>
+      {% endif %}
+      
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        {% for veset in vestot_list %}
+        <td>{{ veset.get_str|safe }}</td>
+        {% endfor %}
+      </tr>
+  </tbody>
+</table>
+
+<div class="center-form">
+  <form method="GET">
+    <input type="submit" value="בדוק שוב" class="btn btn-secondary">
+  </form>
+</div>
+{% endif %}
+
+{% endblock body %}
+    

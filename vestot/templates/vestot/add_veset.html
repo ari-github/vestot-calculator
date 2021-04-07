@@ -3,120 +3,28 @@
 {% block title %}
     הוסף וסת
 {% endblock title %}
-    
 
 {% block body %}
 
-
 {% if user.is_authenticated %}
+
 <h3 class="d-flex align-items-center justify-content-center">הוסף וסת</h3>
-<div class="form-group d-flex align-items-center justify-content-center">
-  <form method="POST" class="w-25">
+<div class="center-form w-25">
+  <form method="POST">
       {% csrf_token %}
-
-      <div class="mb-3">
-          <label for="year" class="form-label">בחר שנה</label>
-          <select name="year" id="year" class="form-select" aria-label="Default select example">
-              <option value="5779">תשע"ט</option>
-              <option value="5780">תש"פ</option>
-              <option selected="selected" value="5781">תשפ"א</option>
-              <option value="5782">תשפ"ב</option>
-              <option value="5783">תשפ"ג</option>
-              <option value="5784">תשפ"ה</option>
-              <option value="5785">תשפ"ו</option>
-              <option value="5786">תשפ"ז</option>
-          </select>
-      </div>
-      
-      <div class="mb-3">
-        <label for="month" class="form-label">בחר חודש</label>
-        <select name="month" id="month" class="form-select" aria-label="Default select example">
-          <option value="7">תשרי</option>
-          <option value="8">חשוון</option>
-          <option value="9">כסלו</option>
-          <option value="10">טבת</option>
-          <option value="11">שבט</option>
-          <option value="12">אדר</option>
-          <option value="13">אדר ב</option>
-          <option value="1">ניסן</option>
-          <option value="2">אייר</option>
-          <option value="3">סיון</option>
-          <option value="4">תמוז</option>
-          <option value="5">אב</option>
-          <option value="6">אלול</option>
-        </select>
-      </div>
-
-      <div class="mb-3">
-
-        <label for="day" class="form-label">בחר יום</label>
-        <select name="day" id="day" class="form-select" aria-label="Default select example">
-          <option value="1">א</option>
-          <option value="2">ב</option>
-          <option value="3">ג</option>
-          <option value="4">ד</option>
-          <option value="5">ה</option>
-          <option value="6">ו</option>
-          <option value="7">ז</option>
-          <option value="8">ח</option>
-          <option value="9">ט</option>
-          <option value="10">י</option>
-          <option value="11">יא</option>
-          <option value="12">יב</option>
-          <option value="13">יג</option>
-          <option value="14">יד</option>
-          <option value="15">טו</option>
-          <option value="16">טז</option>
-          <option value="17">יז</option>
-          <option value="18">יח</option>
-          <option value="19">יט</option>
-          <option value="20">כ</option>
-          <option value="21">כא</option>
-          <option value="22">כב</option>
-          <option value="23">כג</option>
-          <option value="24">כד</option>
-          <option value="25">כה</option>
-          <option value="26">כו</option>
-          <option value="27">כז</option>
-          <option value="28">כח</option>
-          <option value="29">כט</option>
-          <option value="30">ל</option>
-
-        </select>
-      </div>
-
-      
-      <div class="mb-3">
-
-        <label for="ona" class="form-label">בחר עונה</label>
-        <select name="ona" id="ona" class="form-select" aria-label="Default select example">
-          <option value="0">יום</option>
-          <option value="1">לילה</option>
-        </select>
-      </div>
-
+      {{ form.as_p }}
       <input class="mb-3 btn btn-secondary" type="submit" value="הוסף וסת">
   </form>
 </div>
+
 {% else %}
 אתה לא יכול להיכנס לכאן לפני שהתחברת...
 <br><br>
 {% endif %}
+
   <div class="d-flex align-items-center justify-content-center">
     <a class="mb-3 btn btn-secondary" href="{% url 'home' %}">חזור</a>
   </div>
-
-<script>
-  selectElement('year', '{{ date.jewish_year }}')
-  selectElement('month', '{{ date.jewish_month }}')
-  selectElement('day', '{{ date.jewish_day }}')
-
-
-  function selectElement(id, valueToSelect) {    
-      let element = document.getElementById(id);
-      element.value = valueToSelect;
-  }
-</script>
 
 {% endblock body %}
     

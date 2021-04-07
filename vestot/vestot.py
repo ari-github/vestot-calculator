@@ -109,14 +109,22 @@ class VesetMediumR:
 
 
 class VesetAfl:
-    def __init__(self, old_veset, veset):
+    def __init__(self, veset, old_veset=None, afl=None):
         if old_veset:
-            self.old_veset = old_veset
             self.based_veset = veset
+            self.old_veset = old_veset
             self.afl_days = (self.based_veset.date - self.old_veset.date).days + 1
             self.date = self.based_veset.date + self.afl_days - 1
             self.ona = self.based_veset.ona
             self.orz = ([self.date.jewish_day, 1] if self.ona == 0 else [(self.date - 1).jewish_day, 0])
+        elif afl:
+            # repeated code
+            self.based_veset = veset
+            self.afl_days = afl
+            self.date = self.based_veset.date + self.afl_days - 1
+            self.ona = self.based_veset.ona
+            self.orz = ([self.date.jewish_day, 1] if self.ona == 0 else [(self.date - 1).jewish_day, 0])
+            
 
     def get_str(self):
         day = hebFormeter.DAYS[self.date.jewish_day-1]
@@ -129,3 +137,18 @@ class VesetAfl:
     def __str__(self):
         return f'{self.__class__.__name__}: date:{self.date.jewish_date} ona:{self.ona} orz:{self.orz} aflga days:{self.afl_days}'
 
+
+def fast_vestot_calculator(year, month, day, ona, afl):
+    veset_list = []
+    ves = Veset(year, month, day, ona)
+    veset_list.append(ves)
+    veset_list.append(VesetMonth(ves))
+    veset_list.append(VesetMedium(ves))
+    veset_list.append(VesetMediumR(ves))
+    if afl:
+        veset_list.append(VesetAfl(ves, afl=afl))
+
+    return veset_list
+
+
+    

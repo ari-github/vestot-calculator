@@ -13,6 +13,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'home' %}">בית</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'fast_calculator' %}">מחשבון מהיר</a>
+          </li>
           {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'add_veset' %}">הוסף וסת</a>
@@ -22,10 +25,10 @@
             </li>
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'register' %}">הירשם</a>
+              <a class="nav-link" href="{% url 'login' %}">התחבר</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">התחבר</a>
+              <a class="nav-link" href="{% url 'register' %}">הירשם</a>
             </li>
           {% endif %}
         </ul>

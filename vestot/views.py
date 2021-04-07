@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.views.generic import CreateView
+
 from zmanim.hebrew_calendar.jewish_date import JewishDate
 
+from .forms import AddVesetForm, FastCalculatorForm
 from .models import VesetModel
 from . import vestot
 
@@ -34,17 +37,17 @@ def home(request):
         'vestot_adapter': vestot_adapter
     })
 
-def add_veset(request):
-    if request.method == 'POST':
-        ves = VesetModel(year=request.POST['year'], 
-                            month=request.POST['month'], 
-                            day=request.POST['day'], 
-                            ona=request.POST['ona'],
-                            user=request.user)
-        ves.save()    
+class AddVeset(CreateView):
+    model = VesetModel
+    form_class = AddVesetForm
+    template_name = 'vestot/add_veset.html'
+
+    def form_valid(self, form):
+        veset = form.save(commit=False)
+        veset.user = self.request.user
+        veset.save() 
         return HttpResponseRedirect(reverse('home'))
-    else:
-        return render(request, 'vestot/add_veset.html', {'date': JewishDate()})
+
 
 def delete_veset(request, num):
     ves_model = VesetModel.objects.get(pk=num)
@@ -59,4 +62,19 @@ def delete_veset(request, num):
             'veset': veset,
             'ves_model': ves_model,
             })
-    
+
+def fast_calculator(request):
+    if request.method == 'POST':
+        form = FastCalculatorForm(request.POST)
+        if form.is_valid():
+            vestot_list = vestot.fast_vestot_calculator(
+                            int(form.cleaned_data['year']),
+                            int(form.cleaned_data['month']),
+                            int(form.cleaned_data['day']),
+                            int(form.cleaned_data['ona']),
+                            form.cleaned_data['afl']
+                        )
+            return render(request, 'vestot/fast_calculator.html', {'vestot_list': vestot_list})
+
+    form = FastCalculatorForm()
+    return render(request, 'vestot/fast_calculator.html', {'form': form})
