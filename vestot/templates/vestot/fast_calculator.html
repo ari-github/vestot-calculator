@@ -1,4 +1,5 @@
 {% extends 'vestot/base.html' %}
+{% load static %}
 
 {% block title %}
     מחשבון מהיר
@@ -6,7 +7,6 @@
   
 {% block body %}
 <h3 class="d-flex align-items-center justify-content-center">מחשבון מהיר</h3>
-
 
 {% if form %}
   <div class="center-form w-25">
@@ -49,6 +49,9 @@
   </form>
 </div>
 {% endif %}
+
+  <script src="https://unpkg.com/kosher-zmanim@0.8.0/dist/kosher-zmanim.min.js"></script>
+  <script src="{% static 'vestot/script/dateChooser.js' %}"></script>
 
 {% endblock body %}
     

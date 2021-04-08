@@ -1,4 +1,5 @@
 {% extends 'vestot/base.html' %}
+{% load static %}
 
 {% block title %}
     הוסף וסת
@@ -26,5 +27,7 @@
     <a class="mb-3 btn btn-secondary" href="{% url 'home' %}">חזור</a>
   </div>
 
+  <script src="https://unpkg.com/kosher-zmanim@0.8.0/dist/kosher-zmanim.min.js"></script>
+  <script src="{% static 'vestot/script/dateChooser.js' %}"></script>
 {% endblock body %}
     
