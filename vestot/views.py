@@ -26,7 +26,7 @@ def home(request):
             forbiden.append(vestot.VesetMedium(veset))
             forbiden.append(vestot.VesetMediumR(veset))
             if len(vestot_adapter) > 0:
-                forbiden.append(vestot.VesetAfl(vestot_adapter[-1][0], veset))
+                forbiden.append(vestot.VesetAfl(veset, old_veset=vestot_adapter[-1][0]))
             else:
                 forbiden.append('')
             forbiden.append(ves[key])
