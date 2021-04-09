@@ -12,19 +12,19 @@ from . import vestot
 # Create your views here.
 
 def home(request):
+    context = {}
     if request.user.is_authenticated:
         ves = VesetModel.objects.filter(user=request.user)
         vsetot_list = vestot.vestot_calculator([v.year, v.month, v.day, v.ona] for v in ves)
         
-        veset_model = [ves.get(year=veset[0].year, 
+        veset_model = [ves.filter(year=veset[0].year, 
                                 month=veset[0].month, 
                                 day=veset[0].day, 
-                                ona=veset[0].ona) 
+                                ona=veset[0].ona).first()
                                 for key, veset in enumerate(vsetot_list)]
+        context['vsetot_list'] = zip(vsetot_list, veset_model)
 
-    return render(request, 'vestot/home.html', {
-        'vsetot_list': zip(vsetot_list, veset_model),
-    })
+    return render(request, 'vestot/home.html', context)
 
 class AddVeset(CreateView):
     model = VesetModel
