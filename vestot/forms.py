@@ -20,7 +20,7 @@ class FastCalculatorForm(forms.Form):
                                 choices=ona_choice, 
                                 widget=forms.Select(attrs={'class': 'form-select', 'id': 'ona'}))
     
-    afl = forms.IntegerField(label='בחר הפלגה (לא חובה)', required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    afl = forms.IntegerField(label='בחר הפלגה (לא חובה)', min_value=1, required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     
 class AddVesetForm(forms.ModelForm):
     class Meta:

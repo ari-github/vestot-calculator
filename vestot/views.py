@@ -45,7 +45,7 @@ class AddVeset(CreateView):
     def form_valid(self, form):
         veset = form.save(commit=False)
         veset.user = self.request.user
-        veset.save() 
+        VesetModel.objects.get_or_create(year=veset.year, month=veset.month, day=veset.day, ona=veset.ona, user=veset.user)
         return HttpResponseRedirect(reverse('home'))
 
 
