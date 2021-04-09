@@ -12,29 +12,18 @@ from . import vestot
 # Create your views here.
 
 def home(request):
-    vestot_adapter = []
-
     if request.user.is_authenticated:
         ves = VesetModel.objects.filter(user=request.user)
-        vestot_list = [vestot.Veset(v.year, v.month, v.day, v.ona) for v in ves]
-        vestot_list.sort()
-
-        for key, veset in enumerate(vestot_list):
-            forbiden = []
-            forbiden.append(veset)
-            forbiden.append(vestot.VesetMonth(veset))
-            forbiden.append(vestot.VesetMedium(veset))
-            forbiden.append(vestot.VesetMediumR(veset))
-            if len(vestot_adapter) > 0:
-                forbiden.append(vestot.VesetAfl(veset, old_veset=vestot_adapter[-1][0]))
-            else:
-                forbiden.append('')
-            forbiden.append(ves[key])
-
-            vestot_adapter.append(forbiden)
+        vsetot_list = vestot.vestot_calculator([v.year, v.month, v.day, v.ona] for v in ves)
+        
+        veset_model = [ves.get(year=veset[0].year, 
+                                month=veset[0].month, 
+                                day=veset[0].day, 
+                                ona=veset[0].ona) 
+                                for key, veset in enumerate(vsetot_list)]
 
     return render(request, 'vestot/home.html', {
-        'vestot_adapter': vestot_adapter
+        'vsetot_list': zip(vsetot_list, veset_model),
     })
 
 class AddVeset(CreateView):

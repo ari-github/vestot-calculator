@@ -8,7 +8,7 @@
 {% block body %}
 
 {% if user.is_authenticated %}
-  {% if  vestot_adapter %}
+  {% if  vsetot_list %}
     <h3>רשימת וסתות</h3> <br>
     <table class="table  table-striped table-bordered ">
         <thead>
@@ -19,19 +19,23 @@
             <th scope="col">בינונית</th>
             <th scope="col">בינונית 31</th>
             <th scope="col">הפלגה</th>
+            <th scope="col">הפלגה שלא נעקרה</th>
+            <th scope="col">הפלגה שלא נעקרה</th>
             <th scope="col"> מחק</th>
           </tr>
         </thead>
         <tbody>
-            {% for veset in vestot_adapter %}
+            {% for veset, model in vsetot_list %}
             <tr>
-                {% for v in veset %}
-                    {% if not v.id %}
-                      <td>{{ v.get_str|safe }}</td>
-                    {% else %}
-                      <td><a href="{% url 'delete_veset' v.pk %}">מחק</a></td>
-                    {% endif %}
-                {% endfor %}  
+              <td>{{ veset.0.get_str|safe }}</td>
+              <td>{{ veset.1.get_str|safe }}</td>
+              <td>{{ veset.2.get_str|safe }}</td>
+              <td>{{ veset.3.get_str|safe }}</td>
+              <td>{{ veset.4.get_str|safe }}</td>
+              <td>{{ veset.5.get_str|safe }}</td>
+              <td>{{ veset.6.get_str|safe }}</td>
+              <td><a href="{% url 'delete_veset' model.pk %}">מחק</a></td>
+
             </tr>
             {% endfor %}
         </tbody>

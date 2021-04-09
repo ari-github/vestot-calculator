@@ -1,5 +1,6 @@
 from zmanim.hebrew_calendar.jewish_date import JewishDate
 
+
 class HebFormeter:
     def __init__(self):
         self.DAYS = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'יא', 'יב', 'יג', 'יד', 'טו', 'טז', 'יז', 'יח',
@@ -26,16 +27,21 @@ class HebFormeter:
         s_year = s_year[:len(s_year) - 1] + '\"' + s_year[len(s_year) - 1]
         return s_year
 
+
 hebFormeter = HebFormeter()
+
 
 class Veset:
     def __init__(self, year, month, day, ona):
         self.date = JewishDate(year, month, day)
+        self.year = year
+        self.month = month
+        self.day = day
         self.ona = ona
-        
+
     def get_str(self):
-        day = hebFormeter.DAYS[self.date.jewish_day-1]
-        month = hebFormeter.MONTH[self.date.jewish_month-1]
+        day = hebFormeter.DAYS[self.date.jewish_day - 1]
+        month = hebFormeter.MONTH[self.date.jewish_month - 1]
         year = hebFormeter.con_year_to_str(self.date.jewish_year)
         ona = hebFormeter.ONA[self.ona]
 
@@ -58,10 +64,10 @@ class VesetMonth:
         self.orz = ([self.date.jewish_day, 1] if self.ona == 0 else [(self.date - 1).jewish_day, 0])
 
     def get_str(self):
-        day = hebFormeter.DAYS[self.date.jewish_day-1]
-        month = hebFormeter.MONTH[self.date.jewish_month-1]
+        day = hebFormeter.DAYS[self.date.jewish_day - 1]
+        month = hebFormeter.MONTH[self.date.jewish_month - 1]
         ona = hebFormeter.ONA[self.ona]
-        orz = f"{hebFormeter.DAYS[self.orz[0]-1]}' {hebFormeter.ONA[self.orz[1]]}"
+        orz = f"{hebFormeter.DAYS[self.orz[0] - 1]}' {hebFormeter.ONA[self.orz[1]]}"
 
         return f"{day}' {month} {ona} <br> או\"ז: {orz}"
 
@@ -78,11 +84,11 @@ class VesetMedium:
         self.kret = ([self.date.jewish_day, 1] if self.ona == 0 else [self.date.jewish_day, 0])
 
     def get_str(self):
-        day = hebFormeter.DAYS[self.date.jewish_day-1]
-        month = hebFormeter.MONTH[self.date.jewish_month-1]
+        day = hebFormeter.DAYS[self.date.jewish_day - 1]
+        month = hebFormeter.MONTH[self.date.jewish_month - 1]
         ona = hebFormeter.ONA[self.ona]
-        orz = f"{hebFormeter.DAYS[self.orz[0]-1]}' {hebFormeter.ONA[self.orz[1]]}"
-        kret = f"{hebFormeter.DAYS[self.kret[0]-1]}' {hebFormeter.ONA[self.kret[1]]}"
+        orz = f"{hebFormeter.DAYS[self.orz[0] - 1]}' {hebFormeter.ONA[self.orz[1]]}"
+        kret = f"{hebFormeter.DAYS[self.kret[0] - 1]}' {hebFormeter.ONA[self.kret[1]]}"
 
         return f"{day}' {month} {ona} <br> או\"ז: {orz} <br> כו\"פ: {kret}"
 
@@ -97,8 +103,8 @@ class VesetMediumR:
         self.ona = self.based_veset.ona
 
     def get_str(self):
-        day = hebFormeter.DAYS[self.date.jewish_day-1]
-        month = hebFormeter.MONTH[self.date.jewish_month-1]
+        day = hebFormeter.DAYS[self.date.jewish_day - 1]
+        month = hebFormeter.MONTH[self.date.jewish_month - 1]
         year = hebFormeter.con_year_to_str(self.date.jewish_year)
         ona = hebFormeter.ONA[self.ona]
 
@@ -124,18 +130,68 @@ class VesetAfl:
             self.date = self.based_veset.date + self.afl_days - 1
             self.ona = self.based_veset.ona
             self.orz = ([self.date.jewish_day, 1] if self.ona == 0 else [(self.date - 1).jewish_day, 0])
-            
 
     def get_str(self):
-        day = hebFormeter.DAYS[self.date.jewish_day-1]
-        month = hebFormeter.MONTH[self.date.jewish_month-1]
+        day = hebFormeter.DAYS[self.date.jewish_day - 1]
+        month = hebFormeter.MONTH[self.date.jewish_month - 1]
         ona = hebFormeter.ONA[self.ona]
-        orz = f"{hebFormeter.DAYS[self.orz[0]-1]}' {hebFormeter.ONA[self.orz[1]]}"
+        orz = f"{hebFormeter.DAYS[self.orz[0] - 1]}' {hebFormeter.ONA[self.orz[1]]}"
 
         return f"{day}' {month} {ona}<br> או\"ז: {orz} <br> הפלגה: {self.afl_days}"
-   
+
     def __str__(self):
         return f'{self.__class__.__name__}: date:{self.date.jewish_date} ona:{self.ona} orz:{self.orz} aflga days:{self.afl_days}'
+
+
+class VesetAflOld:
+    def __init__(self, veset, afl):
+        self.based_veset = veset
+        self.afl_days = afl
+        self.date = self.based_veset.date + self.afl_days - 1
+        self.ona = self.based_veset.ona
+
+    def get_str(self):
+        day = hebFormeter.DAYS[self.date.jewish_day - 1]
+        month = hebFormeter.MONTH[self.date.jewish_month - 1]
+        ona = hebFormeter.ONA[self.ona]
+
+        return f"{day}' {month} {ona}<br> הפלגה: {self.afl_days}"
+
+    def __str__(self):
+        return f'{self.__class__.__name__}: date:{self.date.jewish_date} ona:{self.ona} aflga days:{self.afl_days}'
+
+
+def old_afl_generator(ves, ves_afl):
+    afl_list = [ves.afl_days for ves in ves_afl]
+    old_afl_list = []
+
+    max_afl = afl_list[0]
+    for i in range(1, len(afl_list)):
+        if max_afl < afl_list[i]:
+            max_afl = afl_list[i]
+            old_afl_list.append(VesetAflOld(ves, max_afl))
+
+    return old_afl_list
+
+
+def vestot_calculator(date):
+    vestot_list = []
+
+    vestot = [Veset(v[0], v[1], v[2], v[3]) for v in date]
+    vestot.sort()
+
+    for key, veset in enumerate(vestot):
+        vestot_list.append([veset, VesetMonth(veset), VesetMedium(veset), VesetMediumR(veset)])
+
+        if key > 0:
+            vestot_list[key].append(VesetAfl(veset, old_veset=vestot[key-1]))
+
+        if key > 1:
+            afl_list = [ves[4] for ves in reversed(vestot_list[max(1, key-3):])]
+            old_afl_lis = old_afl_generator(veset, afl_list)
+            vestot_list[key] += old_afl_lis
+
+    return vestot_list
 
 
 def fast_vestot_calculator(year, month, day, ona, afl):
@@ -149,6 +205,3 @@ def fast_vestot_calculator(year, month, day, ona, afl):
         veset_list.append(VesetAfl(ves, afl=afl))
 
     return veset_list
-
-
-    
