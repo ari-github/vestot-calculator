@@ -16,6 +16,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'fast_calculator' %}">מחשבון מהיר</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'calendar-home' %}">לוח שנה</a>
+          </li>
           {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'add_veset' %}">הוסף וסת</a>

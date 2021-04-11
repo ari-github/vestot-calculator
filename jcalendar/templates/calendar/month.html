@@ -1,0 +1,45 @@
+{% extends 'vestot/base.html' %}
+
+
+{% block title %}
+    לוח שנה
+{% endblock title %}
+    
+
+{% block body %}
+    <h1>לוח שנה</h1>
+    <br>
+    <h4>{{ day_list.1.0.jewish_month_name }}</h4>
+    
+    <a class="btn btn-info left" href="{% url 'calendar-month' prev_month.0 prev_month.1 %}">חודש קודם</a>
+    <a class="btn btn-info right" href="{% url 'calendar-home' %}">עכשיו</a>
+    <a class="btn btn-info right" href="{% url 'calendar-month' next_month.0 next_month.1 %}">חודש הבא</a>
+    <br>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">ראשון</th>
+            <th scope="col">שני</th>
+            <th scope="col">שלישי</th>
+            <th scope="col">רביעי</th>
+            <th scope="col">חמישי</th>
+            <th scope="col">שישי</th>
+            <th scope="col">שבת</th>
+        </tr>
+        </thead>
+        <tbody>
+            
+            {% for week in day_list %}
+                <tr>
+                    {% for day in week %}
+                        <td>{{ day.jewish_date }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+                            
+        </tbody>
+    </table>
+        
+{% endblock body %}
+    
