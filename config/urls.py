@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('vestot.urls')),
     path('members/', include('members.urls')),
     path('members/', include('django.contrib.auth.urls')),
+    path('calendar/', include('jcalendar.urls')),
 ]

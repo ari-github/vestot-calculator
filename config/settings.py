@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vestot',
     'members',
+    'jcalendar',
 ]
 
 MIDDLEWARE = [
