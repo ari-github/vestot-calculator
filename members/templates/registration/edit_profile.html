@@ -1,0 +1,20 @@
+{% extends 'vestot/base.html' %}
+
+
+{% block title %}
+    ערוך פרופיל
+{% endblock title %}
+
+
+{% block body %}
+    <h3 class="d-flex align-items-center justify-content-center">ערוך פרופיל...</h3>
+    <br><br>
+    <div class="center-form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">עדכן פרופיל</button>
+        </form>
+    </div>
+{% endblock body %}
+    
