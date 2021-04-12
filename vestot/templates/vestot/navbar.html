@@ -23,11 +23,15 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'add_veset' %}">הוסף וסת</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'edit_profile' %}">ערוך פרופיל</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">התנתק</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                פרופיל
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'edit_profile' %}">ערוך פרופיל</a></li>
+                <li><a class="dropdown-item" href="{% url 'change_password' %}">שנה סיסמא</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">התנתק</a></li>
+              </ul>
             </li>
           {% else %}
             <li class="nav-item">
