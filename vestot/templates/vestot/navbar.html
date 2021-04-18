@@ -20,16 +20,6 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'add_veset' %}">הוסף וסת</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                פרופיל
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'edit_profile' %}">ערוך פרופיל</a></li>
-                <li><a class="dropdown-item" href="{% url 'change_password' %}">שנה סיסמא</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">התנתק</a></li>
-              </ul>
-            </li>
           {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">התחבר</a>
@@ -39,6 +29,26 @@
             </li>
           {% endif %}
         </ul>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              
+              {% if user.first_name %}
+                {{ user.first_name }} {{ user.last_name}}
+              {% else %}
+                {{ user.username }}
+              {% endif %}
+                
+            </a>
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'edit_profile' %}">ערוך פרופיל</a></li>
+              <li><a class="dropdown-item" href="{% url 'change_password' %}">שנה סיסמה</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">התנתק</a></li>
+            </ul>
+          </li>
+        </ul>
+        {% endif %}
       </div>
     </div>
   </nav>
