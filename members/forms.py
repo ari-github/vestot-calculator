@@ -19,9 +19,11 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class EditProfileForm(UserChangeForm):
+    # password = None
+
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'password')
 
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -29,7 +31,7 @@ class EditProfileForm(UserChangeForm):
         self.fields['first_name'].widget.attrs['class'] = 'form-control'
         self.fields['last_name'].widget.attrs['class'] = 'form-control'
         self.fields['email'].widget.attrs['class'] = 'form-control'
-        
+            
 
 class CustomAuthenticationForm(AuthenticationForm):
     class Meta:

@@ -13,8 +13,12 @@
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
+            <br>
             <button class="btn btn-secondary">עדכן פרופיל</button>
         </form>
     </div>
+    <script>
+        document.getElementById('id_password').style.display = 'none'
+    </script>
 {% endblock body %}
     
