@@ -9,14 +9,15 @@
 {% block body %}
     <h1>לוח שנה</h1>
     <br>
-    <h4>{{ day_list.1.0.jewish_month_name }}</h4>
+    <h4>{{ heb_month }}</h4>
+    <br>
     
     <a class="btn btn-info left" href="{% url 'calendar-month' prev_month.0 prev_month.1 %}">חודש קודם</a>
     <a class="btn btn-info right" href="{% url 'calendar-home' %}">עכשיו</a>
     <a class="btn btn-info right" href="{% url 'calendar-month' next_month.0 next_month.1 %}">חודש הבא</a>
     <br>
     <br>
-    <table class="table table-bordered">
+    <table id="mytab" class="table table-bordered">
         <thead>
         <tr>
             <th scope="col">ראשון</th>
@@ -29,17 +30,29 @@
         </tr>
         </thead>
         <tbody>
-            
-            {% for week in day_list %}
-                <tr>
-                    {% for day in week %}
-                        <td>{{ day.jewish_date }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
                             
+            <tr>
+            {% for key, day in day_list.items %}    
+                <td>{{ day.heb_day }} </td>
+                {% if key|divisibleby:7%}
+                    </tr>   
+                    {% if key != 35 %}
+                    <tr>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}                        
         </tbody>
     </table>
-        
+    <script src="https://unpkg.com/kosher-zmanim@0.8.0/dist/kosher-zmanim.min.js"></script>
+
+    <!-- <script>
+        const table = document.getElementById("mytab");
+        for (let i = 1; i < table.rows.length; i++) {               
+                let row = table.rows[i]
+                for (let j = 0; j < row.cells.length; j++) {
+                    let cell = row.cells[j] 
+                }  
+            }
+    </script> -->
 {% endblock body %}
     
